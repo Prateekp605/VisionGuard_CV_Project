@@ -2,7 +2,6 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![OpenCV](https://img.shields.io/badge/OpenCV-4.8+-brightgreen.svg)](https://opencv.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 An intelligent, real-time Computer Vision system for automated perimeter security, unauthorized intruder detection, and biometric access verification.
 
