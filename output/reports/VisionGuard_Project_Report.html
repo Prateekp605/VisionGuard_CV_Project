@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VisionGuard - Academic Project Report</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            color: #1a1a24;
+            line-height: 1.6;
+            background-color: #fcfcfd;
+            margin: 0;
+            padding: 40px;
+        }
+        .report-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        h1 {
+            color: #0d233a;
+            border-bottom: 2px solid #2b6cb0;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+        h2 {
+            color: #2b6cb0;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 6px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2d3748;
+            margin-top: 20px;
+        }
+        p, li {
+            color: #4a5568;
+            font-size: 15px;
+        }
+        pre {
+            background: #1e2430;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+        code {
+            background: #edf2f7;
+            color: #c53030;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #edf2f7;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #e2e8f0;
+            margin: 30px 0;
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2b6cb0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .print-btn:hover {
+            background: #2c5282;
+        }
+        @media print {
+            .print-btn { display: none; }
+            body { padding: 0; background: white; }
+            .report-wrapper { box-shadow: none; padding: 0; }
+            h1, h2 { page-break-after: avoid; }
+            pre, table { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    <div class="report-wrapper">
+        <h1>VisionGuard: AI-Powered Autonomous Surveillance, Intrusion Detection & Biometric Access System</h1>
+<p><strong>Course Evaluation Submission: Build Your Own Project</strong>  
+<strong>Institution</strong>: VITyarthi Learning Destination  
+<strong>Author</strong>: Student Project Submission  
+<strong>Date</strong>: September 2026  
+<strong>Project Repository</strong>: <code>D:\VisionGuard_CV_Project</code></p>
+<hr>
+<h2>1. Cover Page</h2>
+<p>``<code>text
+================================================================================
+                                 PROJECT REPORT
+                                  VISIONGUARD
+              AI-Powered Autonomous Surveillance & Biometric Security
+================================================================================
+Course: Computer Vision & Machine Intelligence
+Evaluation: Flipped Course Project Evaluation ("Build Your Own Project")
+Submission Format: PDF / GitHub Repository
+Repository Path: D:\VisionGuard_CV_Project
+Target Platform: Windows 10/11 x64, Python 3.10+
+================================================================================
+</code>`<code></p>
+<hr>
+<h2>2. Introduction</h2>
+Physical security surveillance has traditionally depended on closed-circuit television (CCTV) cameras connected to banks of displays monitored by human guards. Research in cognitive psychology shows that human vigilance declines by over 70% after just 20 minutes of continuous screen observation. This latency and human error factor frequently allows perimeter intrusions, security violations, and unauthorized entries to go unaddressed until after significant harm or loss has occurred.
+<p><strong>VisionGuard</strong> is an edge-based Computer Vision system engineered to deliver real-time, automated perimeter surveillance, spatial intrusion tracking, and biometric identity verification. By processing video feeds at 30+ frames per second on commodity edge hardware, VisionGuard autonomously detects motion anomalies, eliminates lighting shadows, recognizes authorized personnel, classifies threat levels, dispatches instant visual alerts, and records structured audit logs into a relational database.</p>
+<hr>
+<h2>3. Problem Statement</h2>
+Manual security surveillance exhibits three primary technical and operational shortcomings:
+1. <strong>Operator Vigilance Deficit</strong>: Human security guards cannot simultaneously analyze multiple camera feeds without missing subtle motion or brief perimeter incursions.
+2. <strong>Absence of Real-Time Biometric Access Disambiguation</strong>: Standard surveillance systems record raw footage without distinguishing between authorized personnel and unknown trespassers in real time.
+3. <strong>Unstructured Data Logging</strong>: Traditional DVR/NVR solutions archive continuous unstructured MP4 video files, making post-incident forensic investigation and compliance auditing laborious and time-consuming.
+<p>VisionGuard addresses these issues by introducing an autonomous, multi-stage computer vision pipeline that pairs MOG2 background subtraction with facial biometrics, real-time threat classification, and ACID-compliant event persistence.</p>
+<hr>
+<h2>4. Functional Requirements</h2>
+<p>VisionGuard implements five core functional modules:
+1. <strong>Module 1: Video Ingestion & Adaptive Preprocessing</strong>:
+   - Ingests frames from live camera feeds or simulated video files.
+   - Applies Contrast Limited Adaptive Histogram Equalization (CLAHE) on the luminance (L) channel in LAB color space to stabilize illumination across varying ambient conditions.
+   - Applies Gaussian smoothing to suppress sensor noise.
+2. <strong>Module 2: Motion Modeling & Spatial Tracking</strong>:
+   - Models static background distribution using Gaussian Mixture Models (</code>cv2.createBackgroundSubtractorMOG2<code>).
+   - Removes shadow artifacts (filtering grayscale intensity 127).
+   - Computes morphological opening and dilation to bridge disconnected contours and remove noise.
+   - Extracts spatial centroids, bounding boxes, and aggregate motion area (in pixels).
+3. <strong>Module 3: Facial Biometrics & Access Control</strong>:
+   - Detects frontal faces using OpenCV Haar Feature-based Cascades.
+   - Extracts normalized 32-bin grayscale/color feature representations for each detected subject.
+   - Matches detected subjects against an enrolled biometric profile database of authorized personnel using histogram correlation.
+   - Categorizes subjects as authorized personnel or unrecognized individuals.
+4. <strong>Module 4: Multi-Factor Threat Evaluation Engine</strong>:
+   - Evaluates multi-variable risk metrics: motion area, presence of unrecognized individuals, presence of authorized officers, and restricted zone perimeter breaches.
+   - Computes a normalized risk score $[0.0, 1.0]$ and categorizes threat level: </code>NORMAL<code>, </code>CAUTION<code>, </code>HIGH<code>, or </code>CRITICAL<code>.
+5. <strong>Module 5: Incident Auditing & Evidence Persistence</strong>:
+   - Automatically captures timestamped high-resolution JPEG evidence frames during elevated threats.
+   - Commits structured records into an SQLite relational database (</code>security_events<code>, </code>personnel<code>, </code>system_telemetry<code>).
+   - Enforces an alert cooldown mechanism to prevent database flooding.</p>
+<hr>
+<h2>5. Non-Functional Requirements</h2>
+<p>VisionGuard satisfies five non-functional engineering requirements:
+1. <strong>Performance</strong>:
+   - Processing throughput exceeds 28–30 FPS on 640x480 resolution streams without requiring specialized cloud GPU acceleration.
+2. <strong>Reliability & Fault Tolerance</strong>:
+   - Implements graceful camera disconnect recovery and fallback offline multi-scenario simulation (</code>run_simulation.py<code>) when physical hardware is unavailable.
+3. <strong>Security & Data Integrity</strong>:
+   - Stores incident snapshots in dedicated directories with standardized timestamp naming. Uses parameterized SQL queries to prevent injection attacks.
+4. <strong>Usability</strong>:
+   - Heads-Up Display (HUD) overlays color-coded threat badges (Green for Normal, Amber for Caution, Red for Critical), target bounding boxes, real-time FPS telemetry, and hotkey shortcuts.
+5. <strong>Maintainability & Modularity</strong>:
+   - Strict separation of concerns across 7 distinct Python modules in </code>src/<code>, with dedicated database managers, configuration classes, and automated unit test suites.</p>
+<hr>
+<h2>6. System Architecture</h2>
+<p>VisionGuard employs a layered pipeline architecture:
+</code>`<code>text
++-----------------------------------------------------------------------------+
+<div class="table-container"><table>
+<tr><th>INGESTION LAYER</th></tr>
+<tr><th>Live Camera Stream (Webcam) / Synthetic Simulation Frames</th></tr>
+</table></div>
++-----------------------------------------------------------------------------+
+<div class="table-container"><table>
+</table></div>
+                                       v
++-----------------------------------------------------------------------------+
+<div class="table-container"><table>
+<tr><th>PREPROCESSING LAYER</th></tr>
+<tr><th>CLAHE Luminance Equalization (LAB) + Gaussian Denoising</th></tr>
+</table></div>
++-----------------------------------------------------------------------------+
+<div class="table-container"><table>
+</table></div>
+                     v                                       v
++------------------------------------+ +--------------------------------------+
+<div class="table-container"><table>
+<tr><th>MOTION DETECTION ENGINE</th><th></th><th>FACIAL BIOMETRICS ENGINE</th></tr>
+<tr><th>- MOG2 Background Subtraction</th><th></th><th>- Haar Cascade Frontal Face</th></tr>
+<tr><th>- Shadow Elimination (Thr=250)</th><th></th><th>- 32-Bin Histogram Feature Vector</th></tr>
+<tr><th>- Morphological Filtering</th><th></th><th>- Correlation Profile Matching</th></tr>
+<tr><th>- Contour Centroid Tracking</th><th></th><th>- Authorized Personnel Registry</th></tr>
+</table></div>
++------------------------------------+ +--------------------------------------+
+                     \                                      /
+                      \                                    /
+                       v                                  v
++-----------------------------------------------------------------------------+
+<div class="table-container"><table>
+<tr><th>THREAT EVALUATION ENGINE</th></tr>
+<tr><th>Multi-Factor Risk Scoring: Motion Area + Identity + Zone Breaches</th></tr>
+<tr><th>Classification: NORMAL</th><th>CAUTION</th><th>HIGH</th><th>CRITICAL</th></tr>
+</table></div>
++-----------------------------------------------------------------------------+
+<div class="table-container"><table>
+</table></div>
+                     v                                       v
++------------------------------------+ +--------------------------------------+
+<div class="table-container"><table>
+<tr><th>PRESENTATION ENGINE (UI)</th><th></th><th>PERSISTENCE LAYER</th></tr>
+<tr><th>- Real-Time HUD Overlay</th><th></th><th>- SQLite Relational Database</th></tr>
+<tr><th>- Color-Coded Bounding Boxes</th><th></th><th>- Timestamped Snapshot Archival</th></tr>
+<tr><th>- FPS & Telemetry Radar</th><th></th><th>- Audit Ledger Query Engine</th></tr>
+</table></div>
++------------------------------------+ +--------------------------------------+
+</code>`<code></p>
+<hr>
+<h2>7. Design Diagrams</h2>
+<h3>7.1 Use Case Diagram</h3>
+- <strong>Security Operator</strong>: Observes live surveillance, views HUD telemetry, triggers manual snapshots, recalibrates background model.
+- <strong>Facility Administrator</strong>: Enrolls authorized personnel, assigns badges, reviews historical access events.
+- <strong>Auditor</strong>: Inspects database security event ledger and visual evidence snapshots.
+<h3>7.2 Process Flow / Workflow Diagram</h3>
+1. Capture raw video frame.
+2. Equalize luminance using CLAHE and apply Gaussian smoothing.
+3. Update MOG2 background subtractor; isolate moving contours.
+4. Scan frame for facial regions of interest; compare features with enrolled database.
+5. Feed motion and identity inputs into the Threat Analyzer.
+6. Compute composite risk score.
+7. If threat exceeds threshold, trigger snapshot and commit incident record to SQLite.
+8. Render HUD and telemetry onto output canvas; display frame to operator.
+<h3>7.3 Sequence Diagram</h3>
+</code>`<code>text
+Camera ---> Preprocessor ---> MotionEngine & FaceBiometrics ---> ThreatAnalyzer
+<div class="table-container"><table>
+</table></div>
+                                        +-----------------------------+
+                                        | (If Alert Triggered)
+                                        v
+                                  AlertNotifier ---> SQLite Database (Log Event)
+                                        |       ---> File System (Save Snapshot)
+                                        v
+                            SecurityVisualizer ---> Screen Display
+</code>`<code>
+<h3>7.4 Class / Component Diagram</h3>
+- </code>FramePreprocessor<code>: </code>resize_frame()<code>, </code>normalize_illumination()<code>, </code>denoise()<code>, </code>process()<code>.
+- </code>MotionEngine<code>: </code>process_frame()<code>, </code>reset_model()<code>.
+- </code>FaceBiometrics<code>: </code>enroll_face()<code>, </code>detect_and_recognize()<code>, </code>_extract_feature()<code>.
+- </code>ThreatAnalyzer<code>: </code>evaluate()<code>.
+- </code>AlertNotifier<code>: </code>trigger_alert()<code>.
+- </code>SecurityVisualizer<code>: </code>render()<code>.
+- </code>DatabaseManager<code>: </code>enroll_person()<code>, </code>log_event()<code>, </code>get_recent_events()<code>, </code>get_event_statistics()<code>.
+<h3>7.5 Database / Storage Design (ER Diagram)</h3>
+- <strong>Table </code>personnel<code></strong>: </code>id<code> (PK), </code>name<code>, </code>role<code>, </code>badge_number<code> (UK), </code>registered_at<code>, </code>status<code>.
+- <strong>Table </code>security_events<code></strong>: </code>id<code> (PK), </code>timestamp<code>, </code>event_type<code>, </code>threat_level<code>, </code>person_id<code> (FK), </code>confidence<code>, </code>motion_area<code>, </code>snapshot_path<code>, </code>notes<code>.
+- <strong>Table </code>system_telemetry<code></strong>: </code>id<code> (PK), </code>timestamp<code>, </code>fps<code>, </code>active_tracks<code>, </code>camera_status<code>.
+<hr>
+<h2>8. Design Decisions & Rationale</h2>
+<p>1. <strong>Why MOG2 over Simple Frame Differencing?</strong>
+   Simple frame differencing (</code>absdiff(frame_t, frame_{t-1})<code>) only detects edges of movement while interior pixels cancel out, and it cannot adapt to gradual ambient illumination shifts. MOG2 models each pixel with a mixture of Gaussians, dynamically accommodating swaying curtains, monitor flicker, and gradual daylight transitions.
+2. <strong>Why CLAHE on the LAB Luminance Channel?</strong>
+   Equalizing RGB channels directly distorts color balance and creates chromatic aberration. Converting to the LAB color space isolates lightness ($L^<em>$) from chromaticity ($a^</em>, b^<em>$). Applying CLAHE exclusively to $L^</em>$ enhances visibility in dark corners while preserving genuine color information.
+3. <strong>Why SQLite for Incident Persistence?</strong>
+   Surveillance edge devices require zero-configuration, self-contained persistence without requiring external database servers (like PostgreSQL or MySQL). SQLite operates in-process, supports full ACID transactions, and guarantees durability even if power is abruptly lost.</p>
+<hr>
+<h2>9. Implementation Details</h2>
+<p>- <strong>Language & Libraries</strong>: Python 3.11, OpenCV 4.8+, NumPy 1.24+, SQLite3.
+- <strong>Directory Layout</strong>:
+  - </code>src/<code>: Core vision and scoring logic.
+  - </code>database/<code>: Schema definitions and SQLite manager.
+  - </code>docs/<code>: Architecture specifications and Mermaid diagrams.
+  - </code>assets/registered_faces/<code>: Enrolled biometric profile images.
+  - </code>output/snapshots/<code>: Incident evidence captures.
+  - </code>run_studio.py<code>: Real-time interactive surveillance studio.
+  - </code>run_simulation.py<code>: Offline multi-scenario demonstration runner.
+  - </code>run_tests.py<code>: Unit and integration test suite.</p>
+<hr>
+<h2>10. Screenshots & Experimental Results</h2>
+<p>The system was evaluated across three reproducible security scenarios:</p>
+<div class="table-container"><table>
+<tr><th>Scenario</th><th>Simulated Incident</th><th>Measured Risk Score</th><th>Assigned Threat Level</th><th>System Response</th></tr>
+<tr><th><strong>Scenario 1</strong></th><th>Peaceful perimeter corridor</th><th>0.32</th><th></code>CAUTION<code></th><th>Green/Yellow HUD, monitoring active</th></tr>
+<tr><th><strong>Scenario 2</strong></th><th>Authorized Officer Sarah Connor Entry</th><th>0.35</th><th></code>CAUTION<code> (Access Granted)</th><th>Officer identified (94% conf), access logged</th></tr>
+<tr><th><strong>Scenario 3</strong></th><th>Unknown intruder breaches restricted zone</th><th>1.00</th><th></code>CRITICAL<code></th><th>Red visual alert, snapshot captured, logged to SQLite</th></tr>
+</table></div>
+<p>Generated visual evidence:
+- </code>output/snapshots/scenario_01_normal.jpg<code>
+- </code>output/snapshots/scenario_02_authorized.jpg<code>
+- </code>output/snapshots/scenario_03_intrusion.jpg<code></p>
+<hr>
+<h2>11. Testing Approach</h2>
+<p>Testing was conducted at both unit and integration levels via </code>run_tests.py<code>:
+1. <strong>Database Test</strong>: Confirms table initialization, foreign key constraints, person enrollment, event logging, and aggregation queries.
+2. <strong>Preprocessor Test</strong>: Validates image resizing and non-zero histogram redistribution under CLAHE.
+3. <strong>Motion Engine Test</strong>: Confirms that stationary scenes produce zero motion area and dynamic targets exceed the 600 px threshold.
+4. <strong>Biometrics Test</strong>: Confirms histogram vector generation and profile matching.
+5. <strong>Threat Scoring Test</strong>: Tests edge cases (peaceful, unknown faces, zone breaches) against mathematical risk boundaries.
+6. <strong>Visualizer Test</strong>: Verifies pixel dimensions, overlay blending, and snapshot persistence.</p>
+<hr>
+<h2>12. Challenges Faced & Solutions</h2>
+<p>1. <strong>Challenge</strong>: Shadows cast by walking subjects were initially classified as moving objects, inflating the motion bounding box.
+   - <strong>Solution</strong>: Set MOG2 </code>detectShadows=True<code> and filtered out pixel values equal to 127, preserving only true foreground pixels ($255$).
+2. <strong>Challenge</strong>: Camera sensor noise caused spurious single-pixel contours in dark areas.
+   - <strong>Solution</strong>: Introduced morphological opening (</code>cv2.MORPH_OPEN<code>) with a $5 \times 5$ rectangular structuring element, successfully eliminating salt-and-pepper noise.
+3. <strong>Challenge</strong>: Continuous intrusion motion caused rapid snapshot saving, threatening disk overflow.
+   - <strong>Solution</strong>: Implemented an alert cooldown window in </code>AlertNotifier` to throttle snapshot frequency to one capture per configurable interval per event type.</p>
+<hr>
+<h2>13. Learnings & Key Takeaways</h2>
+- Decoupling perception (motion/faces) from decision logic (threat analyzer) significantly simplifies threshold tuning.
+- Processing in color spaces tailored to specific vision tasks (LAB for illumination, HSV for color tracking, Grayscale for edge/motion) yields substantially better stability than naive BGR operations.
+- Storing structured metadata alongside visual evidence images bridges the gap between raw computer vision and practical security auditing.
+<hr>
+<h2>14. Future Enhancements</h2>
+1. <strong>Deep Learning Object Detection</strong>: Integrate YOLOv8-nano via OpenCV DNN module for multi-class entity classification (person, vehicle, weapon, package).
+2. <strong>Facial Embeddings with FaceNet / ArcFace</strong>: Replace histogram matching with deep 512-dimensional Euclidean face embeddings for pose-invariant recognition.
+3. <strong>Cloud Web Dashboard</strong>: Expose a Flask or FastAPI REST endpoint streaming live WebRTC video with real-time WebSocket incident notifications.
+<hr>
+<h2>15. References</h2>
+1. Bradski, G. (2000). <em>The OpenCV Library</em>. Dr. Dobb's Journal of Software Tools.
+2. Zivkovic, Z. (2004). <em>Improved adaptive Gaussian mixture model for background subtraction</em>. IEEE International Conference on Pattern Recognition (ICPR).
+3. Viola, P., & Jones, M. (2001). <em>Rapid object detection using a boosted cascade of simple features</em>. IEEE CVPR.
+4. Pizer, S. M., et al. (1987). <em>Adaptive histogram equalization and its variations</em>. Computer Vision, Graphics, and Image Processing.
+5. SQLite Development Team. (2024). <em>SQLite Database Engine Architecture and SQL Reference</em>.
+    </div>
+</body>
+</html>
